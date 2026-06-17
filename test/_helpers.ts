@@ -1,4 +1,5 @@
 import { spawn } from 'node:child_process';
+import { createServer, type AddressInfo } from 'node:net';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { startMockApi, ADMIN_USERNAME, ADMIN_PASSWORD } from './_mock-api.ts';
@@ -13,14 +14,18 @@ export const CSRF_COOKIE = 'cms_csrf';
 export const PLURALS: Record<string, string> = {
   "BlogPosting": "blog-postings",
   "Person": "persons",
+  "Organization": "organizations",
   "WebPage": "web-pages",
   "ImageObject": "image-objects",
+  "VideoObject": "video-objects",
+  "AudioObject": "audio-objects",
   "CategoryCode": "category-codes",
   "CategoryCodeSet": "category-code-sets",
   "DefinedTerm": "defined-terms",
   "DefinedTermSet": "defined-term-sets",
   "Comment": "comments",
-  "WebSite": "web-sites"
+  "WebSite": "web-sites",
+  "SiteNavigationElement": "site-navigation-elements"
 };
 export const SAMPLES: Record<string, Record<string, unknown>> = {
   "BlogPosting": {
@@ -33,10 +38,19 @@ export const SAMPLES: Record<string, Record<string, unknown>> = {
   "Person": {
     "name": "sample"
   },
+  "Organization": {
+    "name": "sample"
+  },
   "WebPage": {
     "headline": "sample"
   },
   "ImageObject": {
+    "contentUrl": "https://example.com/x"
+  },
+  "VideoObject": {
+    "contentUrl": "https://example.com/x"
+  },
+  "AudioObject": {
     "contentUrl": "https://example.com/x"
   },
   "CategoryCode": {
@@ -71,9 +85,13 @@ export const SAMPLES: Record<string, Record<string, unknown>> = {
   "WebSite": {
     "name": "sample",
     "url": "https://example.com/x"
+  },
+  "SiteNavigationElement": {
+    "name": "sample",
+    "url": "https://example.com/x"
   }
 };
-export const ENTITIES: string[] = ["BlogPosting","Person","WebPage","ImageObject","CategoryCode","CategoryCodeSet","DefinedTerm","DefinedTermSet","Comment","WebSite"];
+export const ENTITIES: string[] = ["BlogPosting","Person","Organization","WebPage","ImageObject","VideoObject","AudioObject","CategoryCode","CategoryCodeSet","DefinedTerm","DefinedTermSet","Comment","WebSite","SiteNavigationElement"];
 
 export type CookieJar = Record<string, string>;
 
@@ -83,10 +101,21 @@ export interface Stack {
   stop(): Promise<void>;
 }
 
-let portCounter = 15000 + Math.floor(Math.random() * 1000);
+// Ask the OS for a free port instead of guessing one. Test files run in
+// parallel; a guessed port from a fixed range collides under load (EADDRINUSE).
+function freePort(): Promise<number> {
+  return new Promise((res, rej) => {
+    const probe = createServer();
+    probe.once('error', rej);
+    probe.listen(0, '127.0.0.1', () => {
+      const { port } = probe.address() as AddressInfo;
+      probe.close(() => res(port));
+    });
+  });
+}
 
 export async function startAdmin({ apiBaseUrl }: { apiBaseUrl: string }): Promise<{ baseUrl: string; stop(): Promise<void> }> {
-  const port = portCounter++;
+  const port = await freePort();
   const child = spawn(process.execPath, ['src/server.ts'], {
     cwd: REPO_ROOT,
     env: { ...process.env, PORT: String(port), API_BASE_URL: apiBaseUrl },

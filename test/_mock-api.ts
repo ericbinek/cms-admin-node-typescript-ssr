@@ -43,6 +43,12 @@ const SCHEMAS: Record<string, MockSchema> = {
       "name"
     ]
   },
+  "Organization": {
+    "plural": "organizations",
+    "required": [
+      "name"
+    ]
+  },
   "WebPage": {
     "plural": "web-pages",
     "required": [
@@ -51,6 +57,18 @@ const SCHEMAS: Record<string, MockSchema> = {
   },
   "ImageObject": {
     "plural": "image-objects",
+    "required": [
+      "contentUrl"
+    ]
+  },
+  "VideoObject": {
+    "plural": "video-objects",
+    "required": [
+      "contentUrl"
+    ]
+  },
+  "AudioObject": {
+    "plural": "audio-objects",
     "required": [
       "contentUrl"
     ]
@@ -93,6 +111,13 @@ const SCHEMAS: Record<string, MockSchema> = {
   },
   "WebSite": {
     "plural": "web-sites",
+    "required": [
+      "name",
+      "url"
+    ]
+  },
+  "SiteNavigationElement": {
+    "plural": "site-navigation-elements",
     "required": [
       "name",
       "url"

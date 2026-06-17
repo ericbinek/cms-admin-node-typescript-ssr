@@ -2,22 +2,22 @@ import { layout, escapeHtml, csrfField, renderField, parseFormBody, formValuesFr
 import type { Property, PageResult, SubmitResult, RefOption, User } from '../layout.ts';
 import type { BoundApi } from '../../api-client.ts';
 
-const ENTITY = "WebPage";
-const BASE = "/web-pages";
+const ENTITY = "VideoObject";
+const BASE = "/video-objects";
 const PROPERTIES: Property[] = [
-  { name: "headline", kind: 'InlineScalar', use: "Text", cardinality: "one", required: true },
+  { name: "name", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
   { name: "description", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "text", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "author", kind: 'Ref', targets: ["Person"], cardinality: "one", required: false },
-  { name: "publisher", kind: 'Ref', targets: ["Organization"], cardinality: "one", required: false },
-  { name: "primaryImageOfPage", kind: 'Ref', targets: ["ImageObject"], cardinality: "one", required: false },
-  { name: "isPartOf", kind: 'Ref', targets: ["WebSite"], cardinality: "one", required: false },
-  { name: "datePublished", kind: 'InlineScalar', use: "DateTime", cardinality: "one", required: false },
-  { name: "dateModified", kind: 'InlineScalar', use: "DateTime", cardinality: "one", required: false },
-  { name: "dateCreated", kind: 'InlineScalar', use: "DateTime", cardinality: "one", required: false },
-  { name: "url", kind: 'InlineScalar', use: "URL", cardinality: "one", required: false },
-  { name: "inLanguage", kind: 'Embed', use: "Language", cardinality: "one", required: false },
-  { name: "creativeWorkStatus", kind: 'Enum', values: ["Draft","Pending","Published","Archived"], cardinality: "one", required: false },
+  { name: "contentUrl", kind: 'InlineScalar', use: "URL", cardinality: "one", required: true },
+  { name: "embedUrl", kind: 'InlineScalar', use: "URL", cardinality: "one", required: false },
+  { name: "encodingFormat", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
+  { name: "duration", kind: 'InlineScalar', use: "Duration", cardinality: "one", required: false },
+  { name: "videoQuality", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
+  { name: "transcript", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
+  { name: "caption", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
+  { name: "uploadDate", kind: 'InlineScalar', use: "DateTime", cardinality: "one", required: false },
+  { name: "creator", kind: 'Ref', targets: ["Person"], cardinality: "one", required: false },
+  { name: "thumbnail", kind: 'Ref', targets: ["ImageObject"], cardinality: "one", required: false },
+  { name: "productionCompany", kind: 'Ref', targets: ["Organization"], cardinality: "one", required: false },
 ];
 
 async function loadRefOptions(api: BoundApi): Promise<Record<string, RefOption[]>> {

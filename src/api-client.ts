@@ -3,14 +3,18 @@ const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:3008';
 const PLURALS: Record<string, string> = {
   "BlogPosting": "blog-postings",
   "Person": "persons",
+  "Organization": "organizations",
   "WebPage": "web-pages",
   "ImageObject": "image-objects",
+  "VideoObject": "video-objects",
+  "AudioObject": "audio-objects",
   "CategoryCode": "category-codes",
   "CategoryCodeSet": "category-code-sets",
   "DefinedTerm": "defined-terms",
   "DefinedTermSet": "defined-term-sets",
   "Comment": "comments",
   "WebSite": "web-sites",
+  "SiteNavigationElement": "site-navigation-elements",
 };
 
 export function pluralOf(entity: string): string {

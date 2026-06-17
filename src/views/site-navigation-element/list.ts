@@ -2,15 +2,14 @@ import { layout, escapeHtml, displayName, formatValue } from '../layout.ts';
 import type { Property, PageResult, User } from '../layout.ts';
 import type { BoundApi } from '../../api-client.ts';
 
-const ENTITY = "WebSite";
-const BASE = "/web-sites";
+const ENTITY = "SiteNavigationElement";
+const BASE = "/site-navigation-elements";
 const PROPERTIES: Property[] = [
   { name: "name", kind: 'InlineScalar', use: "Text", cardinality: "one", required: true },
-  { name: "description", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
   { name: "url", kind: 'InlineScalar', use: "URL", cardinality: "one", required: true },
-  { name: "inLanguage", kind: 'Embed', use: "Language", cardinality: "one", required: false },
-  { name: "image", kind: 'Ref', targets: ["ImageObject"], cardinality: "one", required: false },
-  { name: "publisher", kind: 'Ref', targets: ["Organization"], cardinality: "one", required: false },
+  { name: "description", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
+  { name: "position", kind: 'InlineScalar', use: "Integer", cardinality: "one", required: false },
+  { name: "isPartOf", kind: 'Ref', targets: ["SiteNavigationElement"], cardinality: "one", required: false },
 ];
 const EXTRA_COLS: string[] = ["url"];
 

@@ -2,17 +2,21 @@ import { layout, escapeHtml, displayName, formatValue } from '../layout.ts';
 import type { Property, PageResult, User } from '../layout.ts';
 import type { BoundApi } from '../../api-client.ts';
 
-const ENTITY = "WebSite";
-const BASE = "/web-sites";
+const ENTITY = "AudioObject";
+const BASE = "/audio-objects";
 const PROPERTIES: Property[] = [
-  { name: "name", kind: 'InlineScalar', use: "Text", cardinality: "one", required: true },
+  { name: "name", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
   { name: "description", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "url", kind: 'InlineScalar', use: "URL", cardinality: "one", required: true },
-  { name: "inLanguage", kind: 'Embed', use: "Language", cardinality: "one", required: false },
-  { name: "image", kind: 'Ref', targets: ["ImageObject"], cardinality: "one", required: false },
-  { name: "publisher", kind: 'Ref', targets: ["Organization"], cardinality: "one", required: false },
+  { name: "contentUrl", kind: 'InlineScalar', use: "URL", cardinality: "one", required: true },
+  { name: "encodingFormat", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
+  { name: "duration", kind: 'InlineScalar', use: "Duration", cardinality: "one", required: false },
+  { name: "transcript", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
+  { name: "uploadDate", kind: 'InlineScalar', use: "DateTime", cardinality: "one", required: false },
+  { name: "creator", kind: 'Ref', targets: ["Person"], cardinality: "one", required: false },
+  { name: "thumbnail", kind: 'Ref', targets: ["ImageObject"], cardinality: "one", required: false },
+  { name: "productionCompany", kind: 'Ref', targets: ["Organization"], cardinality: "one", required: false },
 ];
-const EXTRA_COLS: string[] = ["url"];
+const EXTRA_COLS: string[] = ["contentUrl"];
 
 export async function render(
   { url, api, user, csrf }: { url: URL; api: BoundApi; user: User; csrf: string },

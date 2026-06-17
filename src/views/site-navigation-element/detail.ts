@@ -2,20 +2,14 @@ import { layout, escapeHtml, displayName, formatValue, errorPage } from '../layo
 import type { Property, PageResult, User } from '../layout.ts';
 import type { BoundApi } from '../../api-client.ts';
 
-const ENTITY = "Person";
-const BASE = "/persons";
+const ENTITY = "SiteNavigationElement";
+const BASE = "/site-navigation-elements";
 const PROPERTIES: Property[] = [
   { name: "name", kind: 'InlineScalar', use: "Text", cardinality: "one", required: true },
-  { name: "givenName", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "familyName", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "alternateName", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "email", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "url", kind: 'InlineScalar', use: "URL", cardinality: "one", required: false },
+  { name: "url", kind: 'InlineScalar', use: "URL", cardinality: "one", required: true },
   { name: "description", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "image", kind: 'Ref', targets: ["ImageObject"], cardinality: "one", required: false },
-  { name: "worksFor", kind: 'Ref', targets: ["Organization"], cardinality: "one", required: false },
-  { name: "jobTitle", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "sameAs", kind: 'InlineScalar', use: "URL", cardinality: "many", required: false },
+  { name: "position", kind: 'InlineScalar', use: "Integer", cardinality: "one", required: false },
+  { name: "isPartOf", kind: 'Ref', targets: ["SiteNavigationElement"], cardinality: "one", required: false },
 ];
 
 export async function render(

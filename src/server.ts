@@ -28,6 +28,11 @@ import * as PersonDetail from './views/person/detail.ts';
 import * as PersonCreate from './views/person/create.ts';
 import * as PersonEdit from './views/person/edit.ts';
 import * as PersonDelete from './views/person/delete.ts';
+import * as OrganizationList from './views/organization/list.ts';
+import * as OrganizationDetail from './views/organization/detail.ts';
+import * as OrganizationCreate from './views/organization/create.ts';
+import * as OrganizationEdit from './views/organization/edit.ts';
+import * as OrganizationDelete from './views/organization/delete.ts';
 import * as WebPageList from './views/web-page/list.ts';
 import * as WebPageDetail from './views/web-page/detail.ts';
 import * as WebPageCreate from './views/web-page/create.ts';
@@ -38,6 +43,16 @@ import * as ImageObjectDetail from './views/image-object/detail.ts';
 import * as ImageObjectCreate from './views/image-object/create.ts';
 import * as ImageObjectEdit from './views/image-object/edit.ts';
 import * as ImageObjectDelete from './views/image-object/delete.ts';
+import * as VideoObjectList from './views/video-object/list.ts';
+import * as VideoObjectDetail from './views/video-object/detail.ts';
+import * as VideoObjectCreate from './views/video-object/create.ts';
+import * as VideoObjectEdit from './views/video-object/edit.ts';
+import * as VideoObjectDelete from './views/video-object/delete.ts';
+import * as AudioObjectList from './views/audio-object/list.ts';
+import * as AudioObjectDetail from './views/audio-object/detail.ts';
+import * as AudioObjectCreate from './views/audio-object/create.ts';
+import * as AudioObjectEdit from './views/audio-object/edit.ts';
+import * as AudioObjectDelete from './views/audio-object/delete.ts';
 import * as CategoryCodeList from './views/category-code/list.ts';
 import * as CategoryCodeDetail from './views/category-code/detail.ts';
 import * as CategoryCodeCreate from './views/category-code/create.ts';
@@ -68,6 +83,11 @@ import * as WebSiteDetail from './views/web-site/detail.ts';
 import * as WebSiteCreate from './views/web-site/create.ts';
 import * as WebSiteEdit from './views/web-site/edit.ts';
 import * as WebSiteDelete from './views/web-site/delete.ts';
+import * as SiteNavigationElementList from './views/site-navigation-element/list.ts';
+import * as SiteNavigationElementDetail from './views/site-navigation-element/detail.ts';
+import * as SiteNavigationElementCreate from './views/site-navigation-element/create.ts';
+import * as SiteNavigationElementEdit from './views/site-navigation-element/edit.ts';
+import * as SiteNavigationElementDelete from './views/site-navigation-element/delete.ts';
 
 interface ViewCtx {
   api: BoundApi;
@@ -114,10 +134,16 @@ const ENTITY_ROUTES: EntityRoute[] = [
     views: { list: BlogPostingList, detail: BlogPostingDetail, create: BlogPostingCreate, edit: BlogPostingEdit, del: BlogPostingDelete } },
   { entity: "Person", plural: "persons",
     views: { list: PersonList, detail: PersonDetail, create: PersonCreate, edit: PersonEdit, del: PersonDelete } },
+  { entity: "Organization", plural: "organizations",
+    views: { list: OrganizationList, detail: OrganizationDetail, create: OrganizationCreate, edit: OrganizationEdit, del: OrganizationDelete } },
   { entity: "WebPage", plural: "web-pages",
     views: { list: WebPageList, detail: WebPageDetail, create: WebPageCreate, edit: WebPageEdit, del: WebPageDelete } },
   { entity: "ImageObject", plural: "image-objects",
     views: { list: ImageObjectList, detail: ImageObjectDetail, create: ImageObjectCreate, edit: ImageObjectEdit, del: ImageObjectDelete } },
+  { entity: "VideoObject", plural: "video-objects",
+    views: { list: VideoObjectList, detail: VideoObjectDetail, create: VideoObjectCreate, edit: VideoObjectEdit, del: VideoObjectDelete } },
+  { entity: "AudioObject", plural: "audio-objects",
+    views: { list: AudioObjectList, detail: AudioObjectDetail, create: AudioObjectCreate, edit: AudioObjectEdit, del: AudioObjectDelete } },
   { entity: "CategoryCode", plural: "category-codes",
     views: { list: CategoryCodeList, detail: CategoryCodeDetail, create: CategoryCodeCreate, edit: CategoryCodeEdit, del: CategoryCodeDelete } },
   { entity: "CategoryCodeSet", plural: "category-code-sets",
@@ -130,6 +156,8 @@ const ENTITY_ROUTES: EntityRoute[] = [
     views: { list: CommentList, detail: CommentDetail, create: CommentCreate, edit: CommentEdit, del: CommentDelete } },
   { entity: "WebSite", plural: "web-sites",
     views: { list: WebSiteList, detail: WebSiteDetail, create: WebSiteCreate, edit: WebSiteEdit, del: WebSiteDelete } },
+  { entity: "SiteNavigationElement", plural: "site-navigation-elements",
+    views: { list: SiteNavigationElementList, detail: SiteNavigationElementDetail, create: SiteNavigationElementCreate, edit: SiteNavigationElementEdit, del: SiteNavigationElementDelete } },
 ];
 
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;

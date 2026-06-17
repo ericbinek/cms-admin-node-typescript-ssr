@@ -2,20 +2,19 @@ import { layout, escapeHtml, displayName, formatValue, errorPage } from '../layo
 import type { Property, PageResult, User } from '../layout.ts';
 import type { BoundApi } from '../../api-client.ts';
 
-const ENTITY = "Person";
-const BASE = "/persons";
+const ENTITY = "AudioObject";
+const BASE = "/audio-objects";
 const PROPERTIES: Property[] = [
-  { name: "name", kind: 'InlineScalar', use: "Text", cardinality: "one", required: true },
-  { name: "givenName", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "familyName", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "alternateName", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "email", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "url", kind: 'InlineScalar', use: "URL", cardinality: "one", required: false },
+  { name: "name", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
   { name: "description", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "image", kind: 'Ref', targets: ["ImageObject"], cardinality: "one", required: false },
-  { name: "worksFor", kind: 'Ref', targets: ["Organization"], cardinality: "one", required: false },
-  { name: "jobTitle", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "sameAs", kind: 'InlineScalar', use: "URL", cardinality: "many", required: false },
+  { name: "contentUrl", kind: 'InlineScalar', use: "URL", cardinality: "one", required: true },
+  { name: "encodingFormat", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
+  { name: "duration", kind: 'InlineScalar', use: "Duration", cardinality: "one", required: false },
+  { name: "transcript", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
+  { name: "uploadDate", kind: 'InlineScalar', use: "DateTime", cardinality: "one", required: false },
+  { name: "creator", kind: 'Ref', targets: ["Person"], cardinality: "one", required: false },
+  { name: "thumbnail", kind: 'Ref', targets: ["ImageObject"], cardinality: "one", required: false },
+  { name: "productionCompany", kind: 'Ref', targets: ["Organization"], cardinality: "one", required: false },
 ];
 
 export async function render(

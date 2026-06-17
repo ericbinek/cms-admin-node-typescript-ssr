@@ -13,6 +13,7 @@ const PROPERTIES: Property[] = [
   { name: "url", kind: 'InlineScalar', use: "URL", cardinality: "one", required: false },
   { name: "description", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
   { name: "image", kind: 'Ref', targets: ["ImageObject"], cardinality: "one", required: false },
+  { name: "worksFor", kind: 'Ref', targets: ["Organization"], cardinality: "one", required: false },
   { name: "jobTitle", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
   { name: "sameAs", kind: 'InlineScalar', use: "URL", cardinality: "many", required: false },
 ];
