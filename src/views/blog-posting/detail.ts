@@ -5,10 +5,10 @@ import type { BoundApi } from '../../api-client.ts';
 const ENTITY = "BlogPosting";
 const BASE = "/blog-postings";
 const PROPERTIES: Property[] = [
-  { name: "headline", kind: 'InlineScalar', use: "Text", cardinality: "one", required: true },
-  { name: "alternativeHeadline", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "description", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "articleBody", kind: 'InlineScalar', use: "Text", cardinality: "one", required: true },
+  { name: "headline", kind: 'InlineScalar', use: "Text", cardinality: "one", required: true, maxLength: 256 },
+  { name: "alternativeHeadline", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false, maxLength: 256 },
+  { name: "description", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false, maxLength: 5000, multiline: true },
+  { name: "articleBody", kind: 'InlineScalar', use: "Text", cardinality: "one", required: true, maxLength: 65536, multiline: true },
   { name: "author", kind: 'Ref', targets: ["Person"], cardinality: "one", required: true },
   { name: "publisher", kind: 'Ref', targets: ["Organization"], cardinality: "one", required: false },
   { name: "image", kind: 'Ref', targets: ["ImageObject"], cardinality: "many", required: false },
@@ -19,7 +19,7 @@ const PROPERTIES: Property[] = [
   { name: "datePublished", kind: 'InlineScalar', use: "DateTime", cardinality: "one", required: false },
   { name: "dateModified", kind: 'InlineScalar', use: "DateTime", cardinality: "one", required: false },
   { name: "dateCreated", kind: 'InlineScalar', use: "DateTime", cardinality: "one", required: false },
-  { name: "url", kind: 'InlineScalar', use: "URL", cardinality: "one", required: false },
+  { name: "url", kind: 'InlineScalar', use: "URL", cardinality: "one", required: false, maxLength: 2048 },
   { name: "inLanguage", kind: 'Embed', use: "Language", cardinality: "one", required: false },
   { name: "isAccessibleForFree", kind: 'InlineScalar', use: "Boolean", cardinality: "one", required: false },
   { name: "wordCount", kind: 'InlineScalar', use: "Integer", cardinality: "one", required: false },

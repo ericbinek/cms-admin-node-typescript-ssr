@@ -5,10 +5,10 @@ import type { BoundApi } from '../../api-client.ts';
 const ENTITY = "DefinedTerm";
 const BASE = "/defined-terms";
 const PROPERTIES: Property[] = [
-  { name: "name", kind: 'InlineScalar', use: "Text", cardinality: "one", required: true },
-  { name: "description", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "termCode", kind: 'InlineScalar', use: "Text", cardinality: "one", required: true },
-  { name: "url", kind: 'InlineScalar', use: "URL", cardinality: "one", required: false },
+  { name: "name", kind: 'InlineScalar', use: "Text", cardinality: "one", required: true, maxLength: 256 },
+  { name: "description", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false, maxLength: 5000, multiline: true },
+  { name: "termCode", kind: 'InlineScalar', use: "Text", cardinality: "one", required: true, maxLength: 128 },
+  { name: "url", kind: 'InlineScalar', use: "URL", cardinality: "one", required: false, maxLength: 2048 },
   { name: "inDefinedTermSet", kind: 'Ref', targets: ["DefinedTermSet"], cardinality: "one", required: true },
 ];
 

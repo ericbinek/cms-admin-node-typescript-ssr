@@ -5,9 +5,9 @@ import type { BoundApi } from '../../api-client.ts';
 const ENTITY = "WebPage";
 const BASE = "/web-pages";
 const PROPERTIES: Property[] = [
-  { name: "headline", kind: 'InlineScalar', use: "Text", cardinality: "one", required: true },
-  { name: "description", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "text", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
+  { name: "headline", kind: 'InlineScalar', use: "Text", cardinality: "one", required: true, maxLength: 256 },
+  { name: "description", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false, maxLength: 5000, multiline: true },
+  { name: "text", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false, maxLength: 65536, multiline: true },
   { name: "author", kind: 'Ref', targets: ["Person"], cardinality: "one", required: false },
   { name: "publisher", kind: 'Ref', targets: ["Organization"], cardinality: "one", required: false },
   { name: "primaryImageOfPage", kind: 'Ref', targets: ["ImageObject"], cardinality: "one", required: false },
@@ -15,7 +15,7 @@ const PROPERTIES: Property[] = [
   { name: "datePublished", kind: 'InlineScalar', use: "DateTime", cardinality: "one", required: false },
   { name: "dateModified", kind: 'InlineScalar', use: "DateTime", cardinality: "one", required: false },
   { name: "dateCreated", kind: 'InlineScalar', use: "DateTime", cardinality: "one", required: false },
-  { name: "url", kind: 'InlineScalar', use: "URL", cardinality: "one", required: false },
+  { name: "url", kind: 'InlineScalar', use: "URL", cardinality: "one", required: false, maxLength: 2048 },
   { name: "inLanguage", kind: 'Embed', use: "Language", cardinality: "one", required: false },
   { name: "creativeWorkStatus", kind: 'Enum', values: ["Draft","Pending","Published","Archived"], cardinality: "one", required: false },
 ];

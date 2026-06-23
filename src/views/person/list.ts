@@ -5,17 +5,17 @@ import type { BoundApi } from '../../api-client.ts';
 const ENTITY = "Person";
 const BASE = "/persons";
 const PROPERTIES: Property[] = [
-  { name: "name", kind: 'InlineScalar', use: "Text", cardinality: "one", required: true },
-  { name: "givenName", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "familyName", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "alternateName", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "email", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "url", kind: 'InlineScalar', use: "URL", cardinality: "one", required: false },
-  { name: "description", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
+  { name: "name", kind: 'InlineScalar', use: "Text", cardinality: "one", required: true, maxLength: 256 },
+  { name: "givenName", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false, maxLength: 256 },
+  { name: "familyName", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false, maxLength: 256 },
+  { name: "alternateName", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false, maxLength: 256 },
+  { name: "email", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false, maxLength: 320 },
+  { name: "url", kind: 'InlineScalar', use: "URL", cardinality: "one", required: false, maxLength: 2048 },
+  { name: "description", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false, maxLength: 5000, multiline: true },
   { name: "image", kind: 'Ref', targets: ["ImageObject"], cardinality: "one", required: false },
   { name: "worksFor", kind: 'Ref', targets: ["Organization"], cardinality: "one", required: false },
-  { name: "jobTitle", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "sameAs", kind: 'InlineScalar', use: "URL", cardinality: "many", required: false },
+  { name: "jobTitle", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false, maxLength: 256 },
+  { name: "sameAs", kind: 'InlineScalar', use: "URL", cardinality: "many", required: false, maxLength: 2048 },
 ];
 const EXTRA_COLS: string[] = ["url"];
 

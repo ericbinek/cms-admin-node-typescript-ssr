@@ -5,15 +5,15 @@ import type { BoundApi } from '../../api-client.ts';
 const ENTITY = "Organization";
 const BASE = "/organizations";
 const PROPERTIES: Property[] = [
-  { name: "name", kind: 'InlineScalar', use: "Text", cardinality: "one", required: true },
-  { name: "legalName", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "description", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "url", kind: 'InlineScalar', use: "URL", cardinality: "one", required: false },
-  { name: "email", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "telephone", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
+  { name: "name", kind: 'InlineScalar', use: "Text", cardinality: "one", required: true, maxLength: 256 },
+  { name: "legalName", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false, maxLength: 256 },
+  { name: "description", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false, maxLength: 5000, multiline: true },
+  { name: "url", kind: 'InlineScalar', use: "URL", cardinality: "one", required: false, maxLength: 2048 },
+  { name: "email", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false, maxLength: 320 },
+  { name: "telephone", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false, maxLength: 64 },
   { name: "logo", kind: 'Ref', targets: ["ImageObject"], cardinality: "one", required: false },
   { name: "foundingDate", kind: 'InlineScalar', use: "Date", cardinality: "one", required: false },
-  { name: "sameAs", kind: 'InlineScalar', use: "URL", cardinality: "many", required: false },
+  { name: "sameAs", kind: 'InlineScalar', use: "URL", cardinality: "many", required: false, maxLength: 2048 },
   { name: "parentOrganization", kind: 'Ref', targets: ["Organization"], cardinality: "one", required: false },
 ];
 const EXTRA_COLS: string[] = ["url"];

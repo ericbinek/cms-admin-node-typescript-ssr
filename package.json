@@ -1,6 +1,6 @@
 {
   "name": "cms-admin-node-typescript-ssr",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Server-rendered, login-protected schema.org-aligned CMS admin UI in TypeScript on Node.js — no runtime dependencies.",
   "license": "MIT",
   "author": "Eric Binek",

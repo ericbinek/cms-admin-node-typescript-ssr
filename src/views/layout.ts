@@ -5,7 +5,7 @@
 export type Cardinality = 'one' | 'many';
 
 export type Property =
-  | { name: string; kind: 'InlineScalar'; use: string; cardinality: Cardinality; required: boolean }
+  | { name: string; kind: 'InlineScalar'; use: string; cardinality: Cardinality; required: boolean; maxLength?: number; multiline?: boolean }
   | { name: string; kind: 'Enum'; values: readonly string[]; cardinality: Cardinality; required: boolean }
   | { name: string; kind: 'Ref'; targets: readonly string[]; cardinality: Cardinality; required: boolean }
   | { name: string; kind: 'Embed'; use: string; cardinality: Cardinality; required: boolean };
@@ -196,7 +196,6 @@ export function formatValue(value: unknown, prop: Property): string {
   return formatScalar(value, prop.use);
 }
 
-const LONG_TEXT_HINT: Set<string> = new Set(['articleBody', 'description', 'text']);
 
 export function renderField(
   { prop, value, refOptions = {}, errors = [] }:
@@ -223,6 +222,8 @@ function renderInput(
   { prop, value, id, requiredAttr, ariaInvalid, refOptions }:
   { prop: Property; value: unknown; id: string; requiredAttr: string; ariaInvalid: string; refOptions: Record<string, RefOption[]> },
 ): string {
+  const maxLength = prop.kind === 'InlineScalar' ? prop.maxLength : undefined;
+  const maxLengthAttr = maxLength ? ` maxlength="${maxLength}"` : '';
   if (prop.kind === 'Enum') {
     const opts = prop.values.map((v) =>
       `<option value="${escapeHtml(v)}"${v === value ? ' selected' : ''}>${escapeHtml(v)}</option>`).join('');
@@ -251,11 +252,11 @@ function renderInput(
     const v = Array.isArray(value) ? value.join('\n') : (value || '');
     return `<textarea id="${id}" name="${escapeHtml(prop.name)}" rows="3"${requiredAttr}${ariaInvalid}>${escapeHtml(v)}</textarea>`;
   }
-  if (prop.use === 'Text' && LONG_TEXT_HINT.has(prop.name)) {
-    return `<textarea id="${id}" name="${escapeHtml(prop.name)}" rows="6"${requiredAttr}${ariaInvalid}>${escapeHtml(value || '')}</textarea>`;
+  if (prop.kind === 'InlineScalar' && prop.use === 'Text' && prop.multiline) {
+    return `<textarea id="${id}" name="${escapeHtml(prop.name)}" rows="6"${maxLengthAttr}${requiredAttr}${ariaInvalid}>${escapeHtml(value || '')}</textarea>`;
   }
   if (prop.use === 'URL') {
-    return `<input id="${id}" name="${escapeHtml(prop.name)}" type="url" value="${escapeHtml(value || '')}"${requiredAttr}${ariaInvalid}>`;
+    return `<input id="${id}" name="${escapeHtml(prop.name)}" type="url" value="${escapeHtml(value || '')}"${maxLengthAttr}${requiredAttr}${ariaInvalid}>`;
   }
   if (prop.use === 'Integer') {
     return `<input id="${id}" name="${escapeHtml(prop.name)}" type="number" step="1" value="${escapeHtml(value ?? '')}"${requiredAttr}${ariaInvalid}>`;
@@ -271,7 +272,7 @@ function renderInput(
     const v = typeof value === 'string' ? value.replace(/Z$/, '').slice(0, 16) : '';
     return `<input id="${id}" name="${escapeHtml(prop.name)}" type="datetime-local" value="${escapeHtml(v)}"${requiredAttr}${ariaInvalid}>`;
   }
-  return `<input id="${id}" name="${escapeHtml(prop.name)}" type="text" value="${escapeHtml(value || '')}"${requiredAttr}${ariaInvalid}>`;
+  return `<input id="${id}" name="${escapeHtml(prop.name)}" type="text" value="${escapeHtml(value || '')}"${maxLengthAttr}${requiredAttr}${ariaInvalid}>`;
 }
 
 function coerceFormValue(raw: unknown, prop: Property): unknown {

@@ -5,7 +5,7 @@ import type { BoundApi } from '../../api-client.ts';
 const ENTITY = "Comment";
 const BASE = "/comments";
 const PROPERTIES: Property[] = [
-  { name: "text", kind: 'InlineScalar', use: "Text", cardinality: "one", required: true },
+  { name: "text", kind: 'InlineScalar', use: "Text", cardinality: "one", required: true, maxLength: 10000, multiline: true },
   { name: "author", kind: 'Ref', targets: ["Person"], cardinality: "one", required: true },
   { name: "about", kind: 'Ref', targets: ["BlogPosting"], cardinality: "one", required: true },
   { name: "parentItem", kind: 'Ref', targets: ["Comment"], cardinality: "one", required: false },

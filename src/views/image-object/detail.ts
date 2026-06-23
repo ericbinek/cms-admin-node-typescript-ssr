@@ -5,14 +5,14 @@ import type { BoundApi } from '../../api-client.ts';
 const ENTITY = "ImageObject";
 const BASE = "/image-objects";
 const PROPERTIES: Property[] = [
-  { name: "name", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "caption", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "description", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
-  { name: "contentUrl", kind: 'InlineScalar', use: "URL", cardinality: "one", required: true },
-  { name: "encodingFormat", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false },
+  { name: "name", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false, maxLength: 256 },
+  { name: "caption", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false, maxLength: 1024 },
+  { name: "description", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false, maxLength: 5000, multiline: true },
+  { name: "contentUrl", kind: 'InlineScalar', use: "URL", cardinality: "one", required: true, maxLength: 2048 },
+  { name: "encodingFormat", kind: 'InlineScalar', use: "Text", cardinality: "one", required: false, maxLength: 128 },
   { name: "uploadDate", kind: 'InlineScalar', use: "DateTime", cardinality: "one", required: false },
   { name: "creator", kind: 'Ref', targets: ["Person"], cardinality: "one", required: false },
-  { name: "license", kind: 'InlineScalar', use: "URL", cardinality: "one", required: false },
+  { name: "license", kind: 'InlineScalar', use: "URL", cardinality: "one", required: false, maxLength: 2048 },
 ];
 
 export async function render(
