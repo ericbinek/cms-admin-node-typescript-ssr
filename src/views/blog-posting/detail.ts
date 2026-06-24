@@ -19,7 +19,7 @@ const PROPERTIES: Property[] = [
   { name: "datePublished", kind: 'InlineScalar', use: "DateTime", cardinality: "one", required: false },
   { name: "dateModified", kind: 'InlineScalar', use: "DateTime", cardinality: "one", required: false },
   { name: "dateCreated", kind: 'InlineScalar', use: "DateTime", cardinality: "one", required: false },
-  { name: "url", kind: 'InlineScalar', use: "URL", cardinality: "one", required: false, maxLength: 2048 },
+  { name: "url", kind: 'InlineScalar', use: "URL", cardinality: "one", required: true, maxLength: 2048 },
   { name: "inLanguage", kind: 'Embed', use: "Language", cardinality: "one", required: false },
   { name: "isAccessibleForFree", kind: 'InlineScalar', use: "Boolean", cardinality: "one", required: false },
   { name: "wordCount", kind: 'InlineScalar', use: "Integer", cardinality: "one", required: false },

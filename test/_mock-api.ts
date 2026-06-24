@@ -34,7 +34,8 @@ const SCHEMAS: Record<string, MockSchema> = {
     "required": [
       "headline",
       "articleBody",
-      "author"
+      "author",
+      "url"
     ]
   },
   "Person": {
